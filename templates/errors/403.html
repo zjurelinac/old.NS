@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset = "UTF-8">
+	<title>Error 403 &ndash; NoteStack</title>
+	<link rel = "stylesheet/less" href = "{{ url_for( 'static', filename = 'css/ui-base.less' ) }}"/>
+	<link rel = "stylesheet/less" href = "{{ url_for( 'static', filename = 'css/ui-static.less' ) }}"/>
+	<script src = "{{ url_for( 'static', filename = 'js/less.min.js' ) }}"></script>
+	<link rel = "icon" href = "url_for( 'static', filename = 'favicon.ico' )" type = "image/x-icon"/>
+</head>
+<body>	
+	<div class = "center-container">
+		<header class = "center-header">
+			<img class = "app-logo" src = "{{ url_for( 'static', filename = 'img/logo.png' ) }}"/>
+			<div class = "page-title">
+				<h1>Restricted access</h1>
+			</div>
+		</header>
+		<div class = "center-content error-message">
+			<h4>Error 403</h4>
+			<p><b>You don't have access to this page.</b></p>
+			<p class = "extra">
+			You're most likely not logged in, or trying to access a page you're not meant to.
+			If the problem persists, please contact us: <a href = "">help@notestack.com</a></p>
+		</div>
+	</div>
+</body>

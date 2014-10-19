@@ -1,0 +1,266 @@
+@import "ui-params.less";
+@import "ui-styles.less";
+
+body{
+	background 		: 	@background-lighter;
+	color 			: 	@foreground-normal;
+	font-family 	: 	@font-family-sans;
+}
+
+.side-menu{
+	background 		: 	@background-dark;
+}
+
+.side-content{
+	background 		: 	@background-gray;
+}
+
+.side-header{
+	p{
+		color 			: 	@foreground-dimmer;
+		font-size 		: 	15px; 
+	}
+}
+
+.side-menu-items li{
+	opacity 		: 	0.4;
+
+	&.active{
+		opacity 		: 	1;
+	}
+
+	&:hover{
+		cursor 			: 	pointer;
+		opacity 		: 	0.75;
+	}
+}
+
+.side-list{
+	
+	li{
+		color 			: 	@foreground-dim;
+		font-size 		: 	15px;
+
+		img{
+			opacity 		: 	0.35; 
+		}
+
+		&.active{
+			color 			: 	@foreground-strong;
+			font-weight 	: 	700;
+			
+			img{
+				opacity 		: 	1;
+			}
+
+		}
+
+		&:hover{
+			color 		: 	@foreground-normal;
+			cursor 		: 	pointer;
+
+			img{
+				opacity 	: 	0.65;
+			} 
+		}
+	}
+	
+	hr{
+		border 				: 	none;
+		border-bottom 		: 	1px solid @border-color;
+	}
+	
+}
+
+.note-toc li{
+	font-family 	: 	@font-family-serif;
+	font-weight 	: 	700; 
+
+	&:after{
+		font-family 	: 	@font-family-sans;
+		font-size 		: 	18px;  
+	} 
+}
+
+/**************************************************************************************************/
+
+input.search{
+	background 		: 	url( ../img/icons/large/search.png ) no-repeat 4px center @background-lighter;
+	padding-left 	: 	48px;
+}
+
+/**************************************************************************************************/
+
+.nb-category{
+	border-right 	: 	6px solid #ddd;
+	font-size 		: 	48px;
+	font-weight 	: 	300;  
+	line-height 	: 	72px; 
+}
+
+.nb-header h2{
+	margin-bottom 	: 	12px;
+}
+
+.nb-keyword-list li{
+	&:extend( .keyword all );
+
+	font-size 		: 	14px;
+}
+
+.nb-content p{
+	font-size 		: 	13px;
+}
+
+.nb-content date{
+	font-size 		: 	14px;
+	font-weight 	: 	bold; 
+}
+
+/* Mixin for applying colors to each category */
+.colorize( @color ){
+
+	.nb-category{
+		border-color 		: 	@color;
+		color 				: 	@color;
+	}
+
+	.nb-content date{
+		color 				: 	@color;
+	}
+
+	.category-abbr{
+		border-color 		: 	@color;
+		color 				: 	@color; 
+	}
+
+	.category-recent-notes date{
+		color 				: 	@color;
+	}
+
+	.note-category{
+		border-color 		: 	@color;
+		color 				: 	@color;
+	}
+
+	.note-header date{
+		color 				: 	@color;
+	}
+
+	h2:hover{
+		color 				: 	@color;
+	}
+
+	pre{
+		border-color 		: 	@color;
+	}
+
+	a[ href ]{
+		border-color 		: 	@color; 
+		color 				: 	@color;
+	}
+
+	.keyword:hover{
+		color 				: 	@color;
+		cursor 				: 	pointer;  
+	}
+}
+
+/* Do so */
+.c1{ .colorize( @accent-red ); }
+.c2{ .colorize( @accent-blue ); }
+.c3{ .colorize( @accent-green ); }
+.c4{ .colorize( @accent-purple ); }
+.c5{ .colorize( @accent-orange ); }
+.c6{ .colorize( @accent-violet ); }
+.c7{ .colorize( @accent-brown ); }
+.c8{ .colorize( @accent-darkgreen ); }
+
+
+/**************************************************************************************************/
+
+.note-header{
+	
+	h2{
+		color 			: 	@foreground-normal;
+		font-size 		: 	36px;
+		font-weight 	: 	300; 
+	}
+
+	date{
+		//&:extend( .text-upper );
+	}
+
+}
+
+.note-status{
+	font-size 		: 	15px; 
+}
+
+.note-stat{
+	color 			: 	@foreground-strong;
+	font-weight 	: 	700;
+	opacity 		: 	0.25;
+}
+
+.note-keyword-list li{
+	&:extend( .keyword all );
+}
+
+.note-content{
+
+	p{
+		color 		: 	@foreground-secondary;
+	}
+
+	b{
+		color 		: 	@foreground-normal;
+	}
+}
+
+/**************************************************************************************************/
+
+textarea.note-title{
+	color 			: 	@foreground-normal;
+	font-family 	: 	@font-family-serif; 
+	font-size 		: 	36px;
+	font-weight 	: 	300;
+	padding 		: 	0;
+}
+
+.add-keyword-trigger{
+	font-size 		: 	24px;
+	font-weight 	: 	700; 
+}
+
+input.new-keyword{
+	border-right 	: 	none;
+}
+
+.note-edit .note-content{
+	//border-left 	: 	1px solid #ddd;
+}
+
+/**************************************************************************************************/
+
+.category-abbr{
+	border-right 	: 	6px solid #ddd;
+	font-size 		: 	42px;
+	font-weight 	: 	300; 
+	line-height 	: 	48px;  	 
+}
+
+.notes-count{
+	&:extend( .text-upper );
+
+	color 			: 	@foreground-dimmer;
+	font-family 	: 	@font-family-sans; 
+	font-size 		: 	14px; 
+}
+
+.category-recent-notes{
+	color 			: 	@foreground-secondary;	
+	font-size 		: 	14px;
+	font-weight 	: 	700; 
+
+}

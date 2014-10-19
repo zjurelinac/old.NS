@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset = "UTF-8">
+	<title>Error 404 &ndash; NoteStack</title>
+	<link rel = "stylesheet/less" href = "{{ url_for( 'static', filename = 'css/ui-base.less' ) }}"/>
+	<link rel = "stylesheet/less" href = "{{ url_for( 'static', filename = 'css/ui-static.less' ) }}"/>
+	<script src = "{{ url_for( 'static', filename = 'js/less.min.js' ) }}"></script>
+	<link rel = "icon" href = "url_for( 'static', filename = 'favicon.ico' )" type = "image/x-icon"/>
+</head>
+<body>	
+	<div class = "center-container">
+		<header class = "center-header">
+			<img class = "app-logo" src = "{{ url_for( 'static', filename = 'img/logo.png' ) }}"/>
+			<div class = "page-title">
+				<h1>Page not found</h1>
+			</div>
+		</header>
+		<div class = "center-content error-message">
+			<h4>Error 404</h4>
+			<p><b>The page you're looking for does not exist.</b></p>
+			<p class = "extra">Please check the url for errors, or try refreshing the page.
+			If the problem persists, please contact us: <a href = "">help@notestack.com</a></p>
+		</div>
+	</div>
+</body>

@@ -1,0 +1,359 @@
+@import "ui-params.less";
+@import "ui-base.less";
+
+/***************************************************************************************************
+		
+							Different layouts based on the screen-size  			
+
+***************************************************************************************************/
+
+/* Printing stylesheet, mostly for single note view */
+@media print{
+
+}
+
+
+/* For very big resolutions */
+@media all and ( min-width : 1701px ){
+
+}
+
+/* For most common desktop screen sizes */
+@media all and ( min-width : 1280px ) and ( max-width : 1700px ){
+
+	.side-menu{
+		bottom 			: 	0;
+		position 		: 	fixed;
+		top 			: 	0; 
+		width 			: 	96px;
+		z-index 		: 	2;
+	}
+
+	.side-menu-items li{
+		padding 		: 	24px 30px;
+
+		img{
+			width 			: 	36px; 
+		}
+	}
+
+	.user-items{
+		bottom 			: 	0;
+		position 		: 	absolute;
+	}
+
+	.side-content{
+		bottom 			: 	0;
+		overflow-y 		: 	auto; 
+		padding-left 	: 	96px;
+		position 		: 	fixed;
+		top 			: 	0;
+		width 			: 	30%;
+	}
+
+	.side-header{
+		padding 		: 	36px 48px 12px 48px;
+
+		h3{
+			margin-bottom 	: 	12px;
+		}
+	}
+
+	.side-action{
+		overflow 		: 	hidden; 
+		padding 		: 	0 48px 36px 48px;
+	}
+
+	.side-list{
+		padding 		: 	0 48px 48px 48px;
+
+		h4{
+			margin-bottom 	: 	6px;
+		}
+
+		li{
+			padding 		: 	6px 0;
+
+			img{
+				float 			: 	left;
+				padding 		: 	4px 16px 4px 0;
+			}
+		}
+
+		hr{
+			margin 			: 	6px 0;
+		}
+	}
+
+	.side-option{
+		clear 			: 	both;
+		height 			: 	0;
+		overflow 		: 	hidden;		 	
+	}
+
+	.note-toc{
+		counter-reset 	: 	toc-counter;
+
+		li{
+			counter-increment : toc-counter;
+			padding-left 	: 	36px;
+			position 		: 	relative;
+
+			&:after{
+				content 		: 	counter( toc-counter, lower-alpha );
+				display 		: 	block;
+				left 			: 	0;
+				line-height 	: 	24px; 
+				position 		: 	absolute;
+				top 			: 	5px;
+			}
+		}
+	}
+
+/**************************************************************************************************/
+
+	.center-container{
+		margin-left 	: 	30%;
+	}
+
+	.center-header{
+		.grid();
+		padding 		: 	24px 48px;
+	}
+
+	.view-name{
+		.column( 1, 2 );
+	}
+
+	.search-box{
+		.column( 1, 2 );
+
+		.search{
+			float 			: 	right;
+			width 			: 	75%;
+		}
+	}
+
+	.center-content{
+		padding 		: 	 36px 48px;	
+	}
+
+/**************************************************************************************************/
+
+	.notes-list{
+		.grid();
+		padding 		: 	36px 24px;
+	}
+
+	.note-brief{
+		.column( 1, 2 );
+		margin-bottom 	: 	48px;
+		padding 		: 	0 24px;
+	}
+
+	.nb-inside{
+		padding 		: 	12px 0;
+		position 		: 	relative;
+	}
+
+	.nb-category{
+		left 			: 	0;
+		height 			: 	100%;
+		position 		: 	absolute;
+		top 			: 	0;
+		width 			: 	96px;
+	}
+
+	.nb-center{
+		height  		: 	168px;
+		overflow 		: 	hidden; 
+		padding 		: 	0 24px 0 120px;
+	}
+
+	.nb-keyword-list{
+		height 			: 	24px;
+		margin-bottom 	: 	12px; 
+		overflow 		: 	hidden;
+
+		li{
+			display 		: 	inline;
+			margin-right 	: 	4px;
+
+			&:after{
+				content 		: 	",";
+			}
+
+			&:last-child:after{
+				content 		: 	"";
+			}
+		} 
+	}
+
+	.nb-content{
+		height 			: 	96px;
+		overflow 		: 	hidden;
+	}
+
+/**************************************************************************************************/
+
+	.note-category{
+		border-right 	: 	6px solid #ddd;
+		font-size 		: 	72px;
+		font-weight 	: 	300;
+		height 			: 	100%;
+		line-height 	: 	96px;
+		position 		: 	absolute;
+		width 			: 	168px;	
+	}
+
+	.note-header-center{
+		margin-left 	: 	192px;
+		padding 		: 	24px 24px 24px 0;
+	}
+
+	.note-header{
+		position 		: 	relative;
+
+		h2{
+			line-height 	: 	48px;
+			margin-bottom 	: 	12px;  
+		}
+	}
+
+	.note-status{
+
+		date{
+			margin-right 	: 	48px;
+		}
+	}
+
+	.note-stat{
+		display 		: 	inline-block;
+		margin-left 	: 	12px;
+
+		img{
+			float 			: 	left;
+			margin 			: 	0 4px 0 0;
+			padding 		: 	4px 4px;
+		}
+	}
+
+	.note-keyword-list{
+		margin-bottom 	: 	12px; 
+		overflow 		: 	hidden;
+
+		li{
+			float 			: 	left;
+			margin-right 	: 	8px;
+
+			&:after{
+				content 		: 	",";
+			}
+
+			&:last-child:after{
+				content 		: 	"";
+			}
+		} 
+	}
+
+	.note-content{
+		margin-left 	: 	168px;
+		margin-top 		: 	48px;
+		padding 		: 	12px 48px 48px 24px;
+		max-width 		: 	700px;
+	}
+
+/**************************************************************************************************/
+
+.edit-options{
+	height 			: 	36px;
+	margin 			: 	48px 48px 48px 192px;
+	overflow 		: 	hidden;
+
+	button{
+		float 			: 	left;
+		margin-right 	: 	12px;
+	}
+}
+
+textarea.note-title{
+	height 			: 	48px;
+	line-height 	: 	48px;
+	margin-bottom 	: 	12px;
+	width 			: 	100%;
+}
+
+.note-text{
+	min-height 		: 	300px; 
+	width 			: 	100%;
+}
+
+.img-button.keyword-add{
+	float 			: 	left; 
+	height 			: 	24px;
+	padding 		: 	0 4px;
+
+	img{
+		margin  		: 	0;
+		padding 		: 	0;
+	}
+
+	&:active{
+		margin-top 		: 	0;
+	}
+}
+
+.new-keyword-box{
+	display 		: 	block;
+	height 			: 	24px;
+}
+
+input.new-keyword{
+	float 			: 	left;
+	width 			: 	100px;
+}
+
+/**************************************************************************************************/
+
+	.categories-list{
+		padding 		: 	36px 24px;
+	}
+
+	.category{
+		.column( 1, 2 );
+		
+		margin-bottom 	: 	48px;
+		padding 		: 	0 24px;
+		position 		: 	relative;
+	}
+
+	.category-abbr{
+		height 			: 	132px;
+		left 			: 	24px;
+		position 		: 	absolute;
+		top 			: 	0;
+		width 			: 	96px;
+	}
+
+	.category-center{
+		padding 		: 	12px 24px 12px 120px;
+
+		h2{
+			margin-bottom 	: 	12px;
+		}
+	}
+
+	.category-recent-notes li{
+		height 			: 	24px;
+		overflow 		: 	hidden;
+
+		date{
+		//	margin-right 	: 	4px; 
+		}
+	}
+}
+
+/* Smaller screens */
+@media all and ( max-width : 1279px ) and ( min-width : 1000px ){
+
+}

@@ -1,0 +1,91 @@
+@import "ui-styles.less";
+
+body{
+	background 		: 	@background-gray;
+	color 			: 	@foreground-normal;
+	font-family 	: 	@font-family-sans; 
+}
+
+.center-container{
+	background 		: 	@background-lighter; 
+	min-height 		: 	400px;
+	margin 			: 	96px auto;
+	width 			: 	600px;
+}
+
+.center-header{
+	background 		: 	@background-light;
+	overflow 		: 	hidden;
+
+	h1{
+		font-size 		: 	32px;
+	}
+}
+
+.app-logo{
+	float 			: 	left;
+}
+
+.page-title{
+	float 			: 	left;
+	padding 		: 	24px 36px 24px 12px;
+}
+
+.center-content{
+	padding 		: 	24px;
+	padding-bottom 	: 	48px;
+}
+
+.login-form{
+	padding 		: 	0 48px 0 48px;
+}
+
+.form-line{
+	height 			: 	48px;
+	margin-bottom 	: 	24px;
+	overflow 		: 	hidden; 
+
+	label{
+		float 			: 	left;
+		line-height 	: 	48px; 
+		margin-right 	: 	24px;
+		text-align 		: 	right; 
+		width 			: 	108px;
+	}
+
+	input{
+		float 			: 	left;
+		width 			: 	240px;
+	}
+
+	input[ type = "checkbox" ]{
+		height 			: 	24px;
+		margin 			: 	0 12px 0 132px;
+		width 			: 	auto;
+	}
+}
+
+.login-button{
+	margin-left		: 	132px; 	
+	margin-bottom 	: 	24px;
+	width 			: 	240px
+}
+
+p.additional-options{
+	color 			: 	@foreground-dimmer;
+	font-size 	 	: 	14px;
+	margin-left 	: 	132px; 
+}
+
+
+.error-message{
+	padding 		: 	24px 48px;
+
+	h4{
+		margin-bottom 	: 	12px; 
+	}
+
+	p.extra{
+		color 			: 	@foreground-dim;
+	}
+}
