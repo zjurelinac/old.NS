@@ -7,18 +7,22 @@ import hashlib
 import base64
 
 def login_required( f ):
-    @wraps( f )
-    def decorated_function( *args, **kwargs ):
-        if session.get( "email" ) is None:
-            return redirect( url_for( 'show_login_form', next = request.url ) )
-        return f( *args, **kwargs )
-    return decorated_function
+	@wraps( f )
+	def decorated_function( *args, **kwargs ):
+		if session.get( "user" ) is None:
+
+			responseDict[ "code" ] = 403
+			responseDict[ "message" ] = "Unauthorized access"
+			return make_response( jsonify( responseDict ), responseDict[ "code" ] )
+		
+		return f( *args, **kwargs )
+	return decorated_function
 
 
 def hashfunc( str ):
 	return base64.b64encode( hashlib.sha512( str.encode() ).hexdigest() )
 
 
-def randomString( len ):
+def random_string( len ):
 	return ''.join( [ random.choice( string.ascii_letters + string.digits + '\\+' ) 
 					  for _ in range( 0, len ) ] )
