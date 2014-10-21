@@ -71,6 +71,16 @@ class Note( MetaModel ):
 		except Category.DoesNotExist:
 			raise ValueError
 
+	@classmethod
+	def editNote( cls, id, title, content, tags, category, user ):
+		note = Note.select().where( Note.user == user && Note.id == id )
+		
+		note.title = title
+		note.content = content
+		note.category = category
+
+
+
 
 
 class Tag( MetaModel ):
