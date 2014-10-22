@@ -1,5 +1,5 @@
 from functools 	import wraps
-from flask 		import session, request, redirect, url_for
+from flask 		import session, request, redirect, url_for, make_response, jsonify
 
 import string
 import random
@@ -13,16 +13,22 @@ def login_required( f ):
 
 			responseDict[ "code" ] = 403
 			responseDict[ "message" ] = "Unauthorized access"
-			return make_response( jsonify( responseDict ), responseDict[ "code" ] )
+			return rest_respond( responseDict )
 		
 		return f( *args, **kwargs )
 	return decorated_function
 
 
+def rest_respond( rdict ):
+	if( rdict is None ): 
+		abort( 500 )
+	return make_response( jsonify( rdict ), rdict.get( "code" ) )
+
 def hashfunc( str ):
-	return base64.b64encode( hashlib.sha512( str.encode() ).hexdigest() )
+	return base64.b85encode( hashlib.sha512( str.encode() ).digest() )
 
 
 def random_string( len ):
 	return ''.join( [ random.choice( string.ascii_letters + string.digits + '\\+' ) 
 					  for _ in range( 0, len ) ] )
+

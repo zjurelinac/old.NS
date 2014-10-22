@@ -1,7 +1,7 @@
 from peewee 	import *
 from app 		import db
 from datetime 	import datetime, date
-from utils 		import hashfunc
+from utils 		import hashfunc, random_string
 
 class MetaModel( Model ):
 	database = db
@@ -21,7 +21,7 @@ class User( MetaModel ):
 
 	@classmethod
 	def validate( cls, email, password ):
-		""" Throws an exception User.DoesNotExist if no user with given email """
+		""" Throws an exception User.DoesNotExist if there is no user with a given email """
 		user = User.get( cls.email == email )
 
 		if( user.password != hashfunc( password ) ):
@@ -32,7 +32,12 @@ class User( MetaModel ):
 	@classmethod
 	def createNew( cls, email, password ):
 		""" Throws an exception User.IntegrityError if the same email is already in use """
-		user = User.create( email = email, password = hashfunc( password ), activation_code = random_string( 64 ) )
+		with db.transaction():
+			User.create( email = email, password = hashfunc( password ), activation_code = random_string( 64 ) )
+
+	@classmethod
+	def deleteUser( cls, user ):
+		pass
 
 
 
@@ -58,6 +63,10 @@ class Note( MetaModel ):
 		return '<Note {0}>'.format( self.title )
 
 	@classmethod
+	def getNote( cls, note_id ):
+		return Note.get( Note.id == note_id ).join( Category ).join( TagToNote ).join( Tag )
+
+	@classmethod
 	def addNew( cls, title, content, tags, category_id, user ):
 		try:
 			with db.transaction():
@@ -73,11 +82,15 @@ class Note( MetaModel ):
 
 	@classmethod
 	def editNote( cls, id, title, content, tags, category, user ):
-		note = Note.select().where( Note.user == user && Note.id == id )
+		note = ( Note.select().where( Note.user == user and Note.id == id )
+					 .join( Category ).join( TagToNote ).join( Tag ) )
 		
 		note.title = title
 		note.content = content
 		note.category = category
+
+		for tag in tags:
+			pass
 
 
 

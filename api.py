@@ -1,7 +1,8 @@
 from app 	import app
 from models import User
-from flask 	import render_template, session, request, jsonify, make_response
-from utils 	import login_required
+from peewee import IntegrityError
+from flask 	import render_template, session, request
+from utils 	import login_required, rest_respond
 
 
 
@@ -10,64 +11,80 @@ from utils 	import login_required
 @app.route( '/login', methods = [ 'POST' ] )
 def validate_user():
 
-	email = request.json.get( 'email' )
-	password = request.json.get( 'password' )
-
 	responseDict = {}
 
-	if( email is not None and password is not None ):
+	if( request.json is not None ):
 
-		try:
-			user = User.validate( email, password )
-			session[ "user" ] = user
-			
-			responseDict[ "message" ] = "Successfully logged in"
-			responseDict[ "code" ] = 200
+		email = request.json.get( 'email' )
+		password = request.json.get( 'password' )
 
-		except User.DoesNotExist:
-			responseDict[ "message" ] = "No user with given email"
-			responseDict[ "code" ] = 403
 
+		if( email is not None and password is not None ):
+
+			try:
+				user = User.validate( email, password )
+				session[ "user" ] = user
+				
+				responseDict[ "message" ] = "OK: Successfully logged in."
+				responseDict[ "code" ] = 200
+
+			except User.DoesNotExist:
+				responseDict[ "message" ] = "Unauthorized: No user with given email."
+				responseDict[ "code" ] = 403
+
+
+		else:
+			responseDict[ "message" ] = "Bad request: Data error."
+			responseDict[ "code" ] = 400
 
 	else:
-		responseDict[ "message" ] = "Bad request"
+		responseDict[ "message" ] = "Bad request: No JSON data sent."
 		responseDict[ "code" ] = 400
 
-	return make_response( jsonify( responseDict ), responseDict[ "code" ] )
+
+	return rest_respond( responseDict )
 
 
 
 @app.route( '/signup', methods = [ 'POST' ] )
 def create_user():
+
+	responseDict = {}
+
+	if( request.json is not None ):
 	
-	email = request.json.get( 'email' )
-	password = request.json.get( 'password' )
-	password2 = request.json.get( 'password2' )
+		email = request.json.get( 'email' )
+		password = request.json.get( 'password' )
+		password2 = request.json.get( 'password2' )
 
-	if( email is not None and password is not None and password2 is not None ):
+		if( email is not None and password is not None and password2 is not None ):
 
-		if( password == password2 ):
+			if( password == password2 ):
 
-			try:
-				user = User.createNew( email, password )
+				try:
+					user = User.createNew( email, password )
 
-				responseDict[ "message" ] = "Successfully signed up"
-				responseDict[ "code" ] = 200
+					responseDict[ "message" ] = "Created: Successfully signed up."
+					responseDict[ "code" ] = 201
 
-			except User.IntegrityError:
-				responseDict[ "message" ] = "Conflict"
-				responseDict[ "code" ] = 409
+				except IntegrityError:
+					responseDict[ "message" ] = "Conflict: Email already exists."
+					responseDict[ "code" ] = 409
+
+			else:
+				responseDict[ "message" ] = "Bad request: Passwords do not match."
+				responseDict[ "code" ] = 400
+
 
 		else:
-			responseDict[ "message" ] = "Bad request: Passwords do not match"
+			responseDict[ "message" ] = "Bad request: Data error."
 			responseDict[ "code" ] = 400
 
-
 	else:
-		responseDict[ "message" ] = "Bad request: Data error"
+		responseDict[ "message" ] = "Bad request: No JSON data sent."
 		responseDict[ "code" ] = 400
 
-	return make_response( jsonify( responseDict ), responseDict[ "code" ] )
+	return rest_respond( responseDict )
 
 
 
@@ -76,19 +93,32 @@ def create_user():
 def logout_user():
 
 	session.clear();
-	responseDict[ "code" ] = 200
-	responseDict[ "message" ] = "Successfully logged out"
 
-	return make_response( jsonify( responseDict ), responseDict[ "code" ] )
+	responseDict[ "code" ] = 200
+	responseDict[ "message" ] = "OK: Successfully logged out."
+
+	return rest_respond( responseDict )
 
 
 
 # Note API
 
-@app.route( '/note/<note_id:int>', methods = [ 'POST' ] )
+@app.route( '/note/<int:note_id>', methods = [ 'POST' ] )
 @login_required
 def get_note( note_id ):
-	pass
+	
+	responseDict = {}
+
+	try:
+		note = Note.getNote( note_id )
+		responseDict[ "note" ] = { 
+			"id" 	: note_id,
+			"title" : note.title,
+			 }
+
+	except Note.DoesNotExist:
+		responseDict[ "message" ] = "Not found: No note with a given id."
+		responseDict[ "code" ] = 404
 
 
 
@@ -122,14 +152,14 @@ def add_note():
 
 
 
-@app.route( '/note/<note_id:int>', methods = [ 'PUT' ] )
+@app.route( '/note/<int:note_id>', methods = [ 'PUT' ] )
 @login_required
 def edit_note( note_id ):
 	pass
 
 
 
-@app.route( '/note/<note_id:int>', methods = [ 'DELETE' ] )
+@app.route( '/note/<int:note_id>', methods = [ 'DELETE' ] )
 @login_required
 def delete_note( note_id ):
 	pass
@@ -138,7 +168,7 @@ def delete_note( note_id ):
 
 # Category API
 
-@app.route( '/category/<cat_id:int>', methods = [ 'GET' ] )
+@app.route( '/category/<int:cat_id>', methods = [ 'GET' ] )
 @login_required
 def get_category():
 	pass
@@ -152,14 +182,14 @@ def add_category():
 
 
 
-@app.route( '/category/<cat_id:int>', methods = [ 'PUT' ] )
+@app.route( '/category/<int:cat_id>', methods = [ 'PUT' ] )
 @login_required
 def edit_category():
 	pass
 
 
 
-@app.route( '/category/<cat_id:int>', methods = [ 'DELETE' ] )
+@app.route( '/category/<int:cat_id>', methods = [ 'DELETE' ] )
 @login_required
 def delete_category():
 	pass
@@ -172,3 +202,12 @@ def list_categories():
 	pass
 
 # Search API
+
+
+# Debug API
+
+@app.route( '/debug/sess_dump', methods = [ 'GET' ] )
+def sess_dump():
+	session[ 'hello' ] = 'world'
+	responseDict = { "code" : 200, "session" : [ ( x, session[ x ] ) for x in session ] }
+	return rest_respond( responseDict )
