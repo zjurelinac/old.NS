@@ -13,7 +13,11 @@ def validate_user():
 
 	responseDict = {}
 
-	if( request.json is not None ):
+	if( session.get( "user_id" ) is not None ):
+		responseDict[ "message" ] = "Collision: Already logged in."
+		responseDict[ "code" ] = 409
+
+	elif( request.json is not None ):
 
 		email = request.json.get( 'email' )
 		password = request.json.get( 'password' )
@@ -23,10 +27,17 @@ def validate_user():
 
 			try:
 				user = User.validate( email, password )
-				session[ "user" ] = user
+
+				if( user is None ):
+					responseDict[ "message" ] = "Unauthorized: Wrong password."
+					responseDict[ "code" ] = 403
+
+				else:
+					session[ "user_id" ] = user.id
+					session[ "user_email" ] = user.email
 				
-				responseDict[ "message" ] = "OK: Successfully logged in."
-				responseDict[ "code" ] = 200
+					responseDict[ "message" ] = "OK: Successfully logged in."
+					responseDict[ "code" ] = 200
 
 			except User.DoesNotExist:
 				responseDict[ "message" ] = "Unauthorized: No user with given email."
@@ -109,16 +120,21 @@ def get_note( note_id ):
 	
 	responseDict = {}
 
+	user_id = session[ "user_id" ]
+
 	try:
-		note = Note.getNote( note_id )
-		responseDict[ "note" ] = { 
-			"id" 	: note_id,
-			"title" : note.title,
-			 }
+		note = Note.getNoteObject( note_id, user_id )
+
+		responseDict[ "note" ] = note
+		responseDict[ "message" ] = "OK: Successfully retirieved a note"
+		responseDict[ "code" ] = 200
+
 
 	except Note.DoesNotExist:
 		responseDict[ "message" ] = "Not found: No note with a given id."
 		responseDict[ "code" ] = 404
+
+	rest_respond( responseDict )
 
 
 
@@ -126,29 +142,37 @@ def get_note( note_id ):
 @login_required
 def add_note():
 
-	title = request.json.get( 'title' )
-	content = request.json.get( 'content' )
-	tags = request.json.get( 'tags' )
-	category_id = request.json.get( 'category_id' )
+	responseDict = {}
 
-	user = session[ "user" ]
+	if( request.json is not None ):
 
-	if( title is not None and content is not None and category_id is not None ):
+		title = request.json.get( 'title' )
+		content = request.json.get( 'content' )
+		tags = request.json.get( 'tags' )
+		category_id = request.json.get( 'category_id' )
 
-		try:
-			Note.addNew( title, content, tags, category_id, user )
-			responseDict[ "code" ] = 200
-			responseDict[ "message" ] = "Successfully added a new note"
+		user_id = session[ "user_id" ]
 
-		except ValueError:
+		if( title is not None and content is not None and category_id is not None ):
+
+			try:
+				Note.addNote( title, content, tags, category_id, user_id )
+				responseDict[ "message" ] = "Successfully added a new note."
+				responseDict[ "code" ] = 200
+
+			except ValueError:
+				responseDict[ "message" ] = "Bad request: No such category."
+				responseDict[ "code" ] = 400
+
+		else:
+			responseDict[ "message" ] = "Bad request: Data error."
 			responseDict[ "code" ] = 400
-			responseDict[ "message" ] = "Bad request: No such category"
 
 	else:
+		responseDict[ "message" ] = "Bad request: No JSON data sent."
 		responseDict[ "code" ] = 400
-		responseDict[ "message" ] = "Bad request: Data error"
 
-	return make_response( jsonify( responseDict ), responseDict[ "code" ] )
+	return rest_respond( responseDict )
 
 
 
@@ -162,7 +186,15 @@ def edit_note( note_id ):
 @app.route( '/note/<int:note_id>', methods = [ 'DELETE' ] )
 @login_required
 def delete_note( note_id ):
-	pass
+
+	responseDict = {}
+
+	if( request.json is not None ):
+
+		title = request.json.get( 'title' )
+		content = request.json.get( 'content' )
+		tags = request.json.get( 'tags' )
+		category_id = request.json.get( 'category_id' )
 
 
 
@@ -208,6 +240,7 @@ def list_categories():
 
 @app.route( '/debug/sess_dump', methods = [ 'GET' ] )
 def sess_dump():
-	session[ 'hello' ] = 'world'
-	responseDict = { "code" : 200, "session" : [ ( x, session[ x ] ) for x in session ] }
+	#session[ 'hello' ] = 'world'
+	responseDict = { "code" : 200, "session" : [ ( k, session[ k ] ) for k in session ], 
+					 "user" : [ session.get( "user_id" ), session.get( "user_email" ) ] }
 	return rest_respond( responseDict )

@@ -12,10 +12,10 @@ def show_signup_form():
 	return render_template( "signup.html" )
 
 
-#@app.route( '/', methods = [ 'GET' ] )
-#@login_required
-#def index():
-#	return 'index'
+@app.route( '/', methods = [ 'GET' ] )
+@login_required
+def index():
+	return 'index'
 
 @app.errorhandler( 404 )
 def page_not_found( e ):

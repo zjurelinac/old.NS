@@ -9,12 +9,9 @@ import base64
 def login_required( f ):
 	@wraps( f )
 	def decorated_function( *args, **kwargs ):
-		if session.get( "user" ) is None:
-
-			responseDict[ "code" ] = 403
-			responseDict[ "message" ] = "Unauthorized access"
+		if session.get( "user_id" ) is None:
+			responseDict = { "code" : 403, "message" : "Unauthorized access, logged-in only." }
 			return rest_respond( responseDict )
-		
 		return f( *args, **kwargs )
 	return decorated_function
 
@@ -29,6 +26,6 @@ def hashfunc( str ):
 
 
 def random_string( len ):
-	return ''.join( [ random.choice( string.ascii_letters + string.digits + '\\+' ) 
+	return ''.join( [ random.choice( string.ascii_letters + string.digits + '$%' ) 
 					  for _ in range( 0, len ) ] )
 

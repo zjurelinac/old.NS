@@ -15,7 +15,6 @@ class User( MetaModel ):
 	password_reset_code = CharField( null = True )
 	password_reset_date = DateField( null = True )
 
-
 	def __repr__( self ):
 		return '<User {0}>'.format( self.email )
 
@@ -24,7 +23,7 @@ class User( MetaModel ):
 		""" Throws an exception User.DoesNotExist if there is no user with a given email """
 		user = User.get( cls.email == email )
 
-		if( user.password != hashfunc( password ) ):
+		if( user.password != password ):
 			return None
 		
 		return user
@@ -33,7 +32,7 @@ class User( MetaModel ):
 	def createNew( cls, email, password ):
 		""" Throws an exception User.IntegrityError if the same email is already in use """
 		with db.transaction():
-			User.create( email = email, password = hashfunc( password ), activation_code = random_string( 64 ) )
+			User.create( email = email, password = password, activation_code = random_string( 64 ) )
 
 	@classmethod
 	def deleteUser( cls, user ):
@@ -52,6 +51,8 @@ class Category( MetaModel ):
 		return '<Category {0}>'.format( self.name )
 
 
+
+
 class Note( MetaModel ):
 	title 		= CharField( unique = True )
 	content 	= TextField()
@@ -63,14 +64,24 @@ class Note( MetaModel ):
 		return '<Note {0}>'.format( self.title )
 
 	@classmethod
-	def getNote( cls, note_id ):
-		return Note.get( Note.id == note_id ).join( Category ).join( TagToNote ).join( Tag )
+	def getNoteObject( cls, note_id, user_id ):
+		""" Thows a Note.DoesNotExist if user has no note with a given id """
+		note = Note.get( Note.id == note_id and Note.user.id == user_id ).join( Category ).join( TagToNote ).join( Tag )
+
+		return {
+			"title" 	: 	note.title,
+			"content" 	: 	note.content,
+			"date" 		: 	note.date.isoformat( 'T' ),
+			"category" 	: 	note.category.getCategoryObject(),
+			"tags" 		: 	Tag.( note_id )
+		}
 
 	@classmethod
-	def addNew( cls, title, content, tags, category_id, user ):
+	def addNote( cls, title, content, tags, category_id, user ):
+		""" Throws a ValueError if user doesn't own a Category with a given id """
 		try:
 			with db.transaction():
-				category = Category.get( Category.id == category_id )
+				category = Category.get( Category.id == category_id and Category.user.id == user_id )
 				note = Note.create( title = title, content = content, category = category, user = user )
 				
 				for tag in tags:
@@ -81,17 +92,29 @@ class Note( MetaModel ):
 			raise ValueError
 
 	@classmethod
-	def editNote( cls, id, title, content, tags, category, user ):
-		note = ( Note.select().where( Note.user == user and Note.id == id )
-					 .join( Category ).join( TagToNote ).join( Tag ) )
+	def editNote( cls, id, title, content, tags, category_id, user_id ):
+		""" Throws  1) Note.DoesNotExist if user doesn't have a note with a given id
+					2) ValueError if user doesn't own a Category with a given id """
+		try:
+			with db.transaction():
+				category = Category.get( Category.id == category_id )
+				note = Note.get( Note.user.id == user_id and Note.id == id ).join( Category ).join( TagToNote ).join( Tag )
+
+				note.title = title
+				note.content = content
+				note.category = category
+
+				for tag in tags:
+					pass
+
+		except Category.DoesNotExist:
+			raise ValueError
 		
-		note.title = title
-		note.content = content
-		note.category = category
-
-		for tag in tags:
-			pass
-
+	@classmethod
+	def deleteNote( cls, id, user_id ):
+		""" Thows a Note.DoesNotExist if user has no note with a given id """
+		note = Note.get( Note.id == note_id and Note.user.id == user_id )
+		note.delete_instance()
 
 
 
@@ -109,6 +132,9 @@ class Tag( MetaModel ):
 			tag = Tag.get( Tag.name == name and Tag.user == user )
 		except Tag.DoesNotExist:
 			tag = Tag.create(  )
+
+	@classmethod
+	def ofNote( cls, note_id ):
 
 
 
