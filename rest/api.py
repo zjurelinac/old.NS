@@ -35,7 +35,7 @@ def validate_user():
 				else:
 					session[ "user_id" ] = user.id
 					session[ "user_email" ] = user.email
-				
+
 					responseDict[ "message" ] = "OK: Successfully logged in."
 					responseDict[ "code" ] = 200
 
@@ -63,7 +63,7 @@ def create_user():
 	responseDict = {}
 
 	if( request.json is not None ):
-	
+
 		email = request.json.get( 'email' )
 		password = request.json.get( 'password' )
 		password2 = request.json.get( 'password2' )
@@ -117,7 +117,7 @@ def logout_user():
 @app.route( '/note/<int:note_id>', methods = [ 'POST' ] )
 @login_required
 def get_note( note_id ):
-	
+
 	responseDict = {}
 
 	user_id = session[ "user_id" ]
@@ -179,7 +179,38 @@ def add_note():
 @app.route( '/note/<int:note_id>', methods = [ 'PUT' ] )
 @login_required
 def edit_note( note_id ):
-	pass
+
+	responseDict = {}
+
+	if( request.json is not None ):
+
+		title = request.json.get( 'title' )
+		content = request.json.get( 'content' )
+		tags = request.json.get( 'tags' )
+		category_id = request.json.get( 'category_id' )
+
+		user_id = session[ "user_id" ]
+
+		if( title is not None and content is not None and category_id is not None ):
+
+			try:
+				Note.editNote( note_id, title, content, tags, category_id, user_id )
+				responseDict[ "message" ] = "Successfully added a new note."
+				responseDict[ "code" ] = 200
+
+			except ValueError:
+				responseDict[ "message" ] = "Bad request: No such category."
+				responseDict[ "code" ] = 400
+
+		else:
+			responseDict[ "message" ] = "Bad request: Data error."
+			responseDict[ "code" ] = 400
+
+	else:
+		responseDict[ "message" ] = "Bad request: No JSON data sent."
+		responseDict[ "code" ] = 400
+
+	return rest_respond( responseDict )
 
 
 
@@ -205,7 +236,7 @@ def delete_note( note_id ):
 def get_category():
 	pass
 
-	
+
 
 @app.route( '/category', methods = [ 'POST' ] )
 @login_required
@@ -241,6 +272,6 @@ def list_categories():
 @app.route( '/debug/sess_dump', methods = [ 'GET' ] )
 def sess_dump():
 	#session[ 'hello' ] = 'world'
-	responseDict = { "code" : 200, "session" : [ ( k, session[ k ] ) for k in session ], 
+	responseDict = { "code" : 200, "session" : [ ( k, session[ k ] ) for k in session ],
 					 "user" : [ session.get( "user_id" ), session.get( "user_email" ) ] }
 	return rest_respond( responseDict )

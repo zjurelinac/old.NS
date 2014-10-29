@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset = "UTF-8">
+	<title>Read &ndash; Monotone chain convex hull &ndash; NoteStack</title>
+	<link rel = "stylesheet/less" href = "./css/ui-base.less"/>
+	<link rel = "stylesheet/less" href = "./css/ui-layout.less"/>
+	<link rel = "stylesheet/less" href = "./css/ui-theme.less"/>
+	<script src = "js/less.min.js"></script>
+	<link rel = "icon" href = "./favicon.ico" type = "image/x-icon"/>
+	<script type = "text/x-mathjax-config">
+	 	MathJax.Hub.Config({
+	 		TeX:{
+	 			extensions: [ 'mhchem.js' ]
+	 		},
+		    tex2jax		: {
+		    	inlineMath: [ [ '$','$' ] ],
+		      	displayMath: [ [ '$$','$$' ] ],
+		      	processEscapes: true
+		    },
+		    "HTML-CSS"	: { 
+    			preferredFont: "STIX" 
+    		},
+    		showMathMenu: false
+	 	});
+	</script>
+	<script src = "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+	<div class = "side-container">
+		<nav class = "side-menu">
+			<div class = "app-logo">
+				<img src = "./img/logo.png" alt = ""/>
+			</div>
+			<ul class = "side-menu-items app-items">
+				<li class = "active"><img src = "./img/icons/large/note.png" alt = ""></li>
+				<li><img src = "./img/icons/large/categories.png" alt = ""></li>
+			</ul>
+			<ul class = "side-menu-items user-items">
+				<li><img src = "./img/icons/large/help.png" alt = ""></li>
+				<li><img src = "./img/icons/large/settings.png" alt = ""></li>
+				<li><img src = "./img/icons/large/signout.png" alt = ""></li>
+			</ul>
+		</nav>
+		<div class = "side-content">
+			<header class = "side-header">
+				<h3>Single note</h3>
+				<p>Read, edit and change note properties.</p>
+			</header>
+			<div class = "side-action">
+				<button class = "img-button"><img src = "./img/icons/small/change.png" alt = ""/>Edit note</button>
+			</div>
+			<ul class = "side-list options-list">
+				<h4>Note actions</h4>
+				<li class = "active"><img src = "./img/icons/small/read.png" alt = ""><span>Read note</span></li>
+				<li><img src = "./img/icons/small/edit.png" alt = ""/><span>Edit note</span></li>
+				<hr/>
+				<li>
+					<img src = "./img/icons/small/category.png" alt = ""><span>Change category</span>					
+					<div class = "side-option">
+						<select>
+							<option value = "">Computer Science</option>
+							<option value = "">Mathematics</option>
+							<option value = "">Physics</option>
+							<option value = "">History</option>
+						</select>
+						<button class = "small-button">change</button>
+					</div>
+				</li>
+				<li><img src = "./img/icons/small/public.png" alt = ""><span>Make public</span></li>
+				<li><img src = "./img/icons/small/completed.png" alt = ""><span>Mark as completed</span></li>
+				<hr/>
+				<li><img src = "./img/icons/small/delete.png" alt = ""><span>Delete note</span></li>
+			</ul>
+			<ul class = "side-list note-toc">
+				<h4>Table of contents</h4>
+				<li class = "active">What is a convex hull?</li>
+				<li>Idea of monotone chain algorithm</li>
+				<li>Implementation in C++</li>
+				<li>Algorithm complexity</li>
+			</ul>
+		</div>
+	</div>
+	<div class = "center-container">
+		<header class = "center-header">
+			<div class = "view-name">
+				<h1>View note</h1>
+			</div>
+			<div class = "search-box">
+				<form>
+					<input type = "search" name = "search" class = "search"/>
+				</form>
+			</div>
+		</header>
+		<div class = "center-content note-view c1">
+			<header class = "note-header">
+				<div class = "note-category">
+					Cs
+				</div>
+				<div class = "note-header-center">
+					<h2>Monotone chain convex hull</h2>
+					<ul class = "note-keyword-list">
+						<li>Algorithms</li>
+						<li>Computational geometry</li>
+					</ul>
+					<div class = "note-status">
+						<date>October 12<sup>th</sup> 2014</date>
+						<span class = "note-stat"><img src = "./img/icons/small/private.png" alt = ""/>Private</span>
+						<span class = "note-stat"><img src = "./img/icons/small/unfinished.png" alt = ""/>Unfinished</span>
+					</div>
+				</div>
+			</header>
+			<div class = "note-content">
+				<h5>What is a convex hull?</h5>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus dolor aut cum 
+				nesciunt, consectetur illum dolores nobis omnis alias voluptas accusantium 
+				distinctio esse, fugit? <a href = "http://en.wikipedia.org/wiki/Main_Page">Wiki explanation</a>
+				Animi nobis laudantium alias, voluptates esse!</p>
+
+				<h5>Idea of monotone chain algorithm</h5>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A voluptatum, officia 
+				ut voluptas officiis molestias aspernatur totam, dignissimos, consequatur et numquam 
+				sapiente sed voluptatem ea voluptatibus. <code>vector&lt; Point &gt; v</code> Consectetur corporis eligendi delectus!</p>
+
+				<h5>Implementation in C++</h5>
+<pre><code>vector&lt;Point&gt; convex_hull( vector&lt; Point &gt; P ){
+    int n = P.size(), k = 0;
+    vector&lt; Point &gt; H( 2*n );
+    sort( P.begin(), P.end() );
+ 
+    // Build lower hull
+    for( int i = 0; i &lt; n; i++ ){
+        while( k &gt;= 2 &amp;&amp; cross( H[k-2], H[k-1], P[i] ) &lt;= 0 ) k--;
+        H[k++] = P[i];
+    }
+ 
+    // Build upper hull
+    for( int i = n-2, t = k+1; i >= 0; i-- ) {
+        while( k &gt;= t &amp;&amp; cross(H[k-2], H[k-1], P[i]) &lt;= 0 ) k--;
+        H[k++] = P[i];
+    }
+ 
+    H.resize( k );
+    return H;
+}</code></pre>
+
+				<h5>Algorithm complexity</h5>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. <b>Sorting the points</b> 
+				is of <span class = "inline-math">$O(n \log_2 n)$</span> complexity. Harum voluptatum veniam 
+				consequatur ratione, aspernatur provident perspiciatis, eligendi ducimus tempora 
+				reprehenderit sint doloribus ut laboriosam cumque a sed, maxime, voluptate esse.</p>
+				<div class = "block-math">$$T(n)=T(n-1)+n T(n-2)$$</div>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo delectus tenetur aspernatur modi necessitatibus dolorem libero! Impedit officia autem animi, tempora, ipsa fuga labore asperiores dolorem voluptate explicabo molestias doloremque!</p>
+			</div>
+		</div>
+	</div>
+</body>

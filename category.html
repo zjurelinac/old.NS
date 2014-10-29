@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset = "UTF-8">
+	<title>Category: Computer Science &ndash; NoteStack</title>
+	<link rel = "stylesheet/less" href = "./css/ui-base.less"/>
+	<link rel = "stylesheet/less" href = "./css/ui-layout.less"/>
+	<link rel = "stylesheet/less" href = "./css/ui-theme.less"/>
+	<script src = "js/less.min.js"></script>
+	<link rel = "icon" href = "./favicon.ico" type = "image/x-icon"/>
+</head>
+<body>
+	<div class = "side-container">
+		<nav class = "side-menu">
+			<div class = "app-logo">
+				<img src = "./img/logo.png" alt = ""/>
+			</div>
+			<ul class = "side-menu-items app-items">
+				<li><img src = "./img/icons/large/note.png" alt = ""></li>
+				<li class = "active"><img src = "./img/icons/large/categories.png" alt = ""></li>
+			</ul>
+			<ul class = "side-menu-items user-items">
+				<li><img src = "./img/icons/large/help.png" alt = ""></li>
+				<li><img src = "./img/icons/large/settings.png" alt = ""></li>
+				<li><img src = "./img/icons/large/signout.png" alt = ""></li>
+			</ul>
+		</nav>
+		<div class = "side-content">
+			<header class = "side-header">
+				<h3>Single category</h3>
+				<p>Manage this category and view all notes belonging to it.</p>
+			</header>
+			<div class = "side-action">
+				<button class = "img-button"><img src = "./img/icons/small/add.png"/>Add note</button>
+			</div>
+			<ul class = "side-list options-list">
+				<h4>Actions</h4>
+				<li class = "active"><img src = "./img/icons/small/all-notes.png" alt = ""><span>Browse notes</span></li>
+				<hr/>
+				<li><img src = "./img/icons/small/edit.png" alt = ""><span>Edit name &amp; abbreviation</span></li>
+				<li><img src = "./img/icons/small/color.png" alt = ""><span>Change color</span></li>
+				<hr/>
+				<li><img src = "./img/icons/small/delete.png" alt = ""/>Delete category</li>
+				<!-- <li><img src = "./img/icons/small/clear.png" alt = ""><span>Delete all notes</span></li> -->
+			</ul>
+		</div>
+	</div>
+	<div class = "center-container view-category c1">
+		<header class = "center-header">
+			<div class = "view-name">
+				<h1>Computer Science</h1>
+			</div>
+			<div class = "search-box">
+				<form>
+					<input type = "search" name = "search" class = "search"/>
+				</form>
+			</div>
+		</header>
+
+		<div class = "center-content notes-list">
+			<article class = "note-brief c1">
+				<div class = "nb-inside">
+					<div class = "nb-category">Cs</div>
+					<div class = "nb-center">
+						<header class = "nb-header">
+							<h2>Monotone chain convex hull</h2>
+							<ul class = "nb-keyword-list">
+								<li>Algorithms</li>
+								<li>Computational geometry</li>
+							</ul>
+						</header>
+						<div class = "nb-content">
+							<p>
+								<date>29/09/14</date>
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto, itaque voluptates beatae, porro suscipit natus. Quas necessitatibus, ipsum debitis rerum, at expedita velit atque iste praesentium modi repellat voluptas odio?
+							</p>
+						</div>
+					</div>
+				</div>
+			</article>
+
+			<article class = "note-brief c1">
+				<div class = "nb-inside">
+					<div class = "nb-category">Cs</div>
+					<div class = "nb-center">
+						<header class = "nb-header">
+							<h2>Threads vs. processes</h2>
+							<ul class = "nb-keyword-list">
+								<li>Operating systems</li>
+								<li>Kernel</li>
+								<li>FER OS</li>
+							</ul>
+						</header>
+						<div class = "nb-content">
+							<p>
+								<date>29/09/14</date>
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto, itaque voluptates beatae, porro suscipit natus. Quas necessitatibus, ipsum debitis rerum, at expedita velit atque iste praesentium modi repellat voluptas odio?
+							</p>
+						</div>
+					</div>
+				</div>
+			</article>
+		</div>
+	</div>
+</body>

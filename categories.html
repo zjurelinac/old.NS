@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset = "UTF-8">
+	<title>All categories &ndash; NoteStack</title>
+	<link rel = "stylesheet/less" href = "./css/ui-base.less"/>
+	<link rel = "stylesheet/less" href = "./css/ui-layout.less"/>
+	<link rel = "stylesheet/less" href = "./css/ui-theme.less"/>
+	<script src = "js/less.min.js"></script>
+	<link rel = "icon" href = "./favicon.ico" type = "image/x-icon"/>
+</head>
+<body>
+	<div class = "side-container">
+		<nav class = "side-menu">
+			<div class = "app-logo">
+				<img src = "./img/logo.png" alt = ""/>
+			</div>
+			<ul class = "side-menu-items app-items">
+				<li><img src = "./img/icons/large/note.png" alt = ""></li>
+				<li class = "active"><img src = "./img/icons/large/categories.png" alt = ""></li>
+			</ul>
+			<ul class = "side-menu-items user-items">
+				<li><img src = "./img/icons/large/help.png" alt = ""></li>
+				<li><img src = "./img/icons/large/settings.png" alt = ""></li>
+				<li><img src = "./img/icons/large/signout.png" alt = ""></li>
+			</ul>
+		</nav>
+		<div class = "side-content">
+			<header class = "side-header">
+				<h3>Categories</h3>
+				<p>View and manage all categories. Browse your notes by them.</p>
+			</header>
+			<div class = "side-action">
+				<button class = "img-button"><img src = "./img/icons/small/add.png"/>New category</button>
+			</div>
+			<ul class = "side-list options-list">
+				<h4>Sort by</h4>
+				<li><img src = "./img/icons/small/alphabetical.png" alt = ""><span>Alphabetical</span></li>
+				<li class = "active"><img src = "./img/icons/small/popular.png" alt = ""><span>Most popular</span></li>
+				<li><img src = "./img/icons/small/recent.png" alt = ""><span>Recent</span></li>
+			</ul>
+		</div>
+	</div>
+	<div class = "center-container">
+		<header class = "center-header">
+			<div class = "view-name">
+				<h1>All categories</h1>
+			</div>
+			<div class = "search-box">
+				<form>
+					<input type = "search" name = "search" class = "search"/>
+				</form>
+			</div>
+		</header>
+		<div class = "center-content categories-list">
+			
+			<article class = "category c1">
+				<div class = "category-abbr">Cs</div>
+				<div class = "category-center">
+					<h2>Computer Science <span class = "notes-count">10 notes</span></h2>
+					<ul class = "category-recent-notes">
+						<li><date>17/10/14</date> Monotone chain convex hull</li>
+						<li><date>11/10/14</date> Threads vs. processes</li>
+						<li><date>24/09/14</date> Tarjan's algorithm for finding SCCs</li>
+					</ul>
+				</div>
+			</article>
+
+			<article class = "category c3">
+				<div class = "category-abbr">Ma</div>
+				<div class = "category-center">
+					<h2>Mathematics <span class = "notes-count">8 notes</span></h2>
+					<ul class = "category-recent-notes">
+						<li><date>11/10/14</date> Pick's theorem: idea and a proof</li>
+						<li><date>21/09/14</date> Complex exponential function</li>
+						<li><date>17/09/14</date> Newton's method for approximate equation solving</li>
+					</ul>
+				</div>
+			</article>
+
+			<article class = "category c2">
+				<div class = "category-abbr">Ph</div>
+				<div class = "category-center">
+					<h2>Physics <span class = "notes-count">5 notes</span></h2>
+					<ul class = "category-recent-notes">
+						<li><date>17/10/14</date> Tensile, bulk and shear strain</li>
+						<li><date>17/10/14</date> Idea of Lagrangian mechanics</li>
+						<li><date>17/10/14</date> Incorrectness of Kirchoff's II. law</li>
+					</ul>
+				</div>
+			</article>
+
+			<article class = "category c7">
+				<div class = "category-abbr">Hi</div>
+				<div class = "category-center">
+					<h2>History <span class = "notes-count">4 notes</span></h2>
+					<ul class = "category-recent-notes">
+						<li><date>17/10/14</date> Pick's theorem: idea and a proof</li>
+						<li><date>17/10/14</date> Complex exponential function</li>
+						<li><date>17/10/14</date> Newton's method for approximate equation solving</li>
+					</ul>
+				</div>
+			</article>
+
+			<article class = "category c3">
+				<div class = "category-abbr">Lo</div>
+				<div class = "category-center">
+					<h2>Logic <span class = "notes-count">2 notes</span></h2>
+					<ul class = "category-recent-notes">
+						<li><date>17/10/14</date> Pick's theorem: idea and a proof</li>
+						<li><date>17/10/14</date> Complex exponential function</li>
+					</ul>
+				</div>
+			</article>
+
+			<article class = "category c4">
+				<div class = "category-abbr">Pl</div>
+				<div class = "category-center">
+					<h2>Philosophy <span class = "notes-count">1 note</span></h2>
+					<ul class = "category-recent-notes">
+						<li><date>17/10/14</date> Pick's theorem: idea and a proof</li>
+					</ul>
+				</div>
+			</article>
+
+		</div>
+	</div>
+</body>

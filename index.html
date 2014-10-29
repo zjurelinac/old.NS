@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset = "UTF-8">
+	<title>All notes &ndash; NoteStack</title>
+	<link rel = "stylesheet/less" href = "./css/ui-base.less"/>
+	<link rel = "stylesheet/less" href = "./css/ui-layout.less"/>
+	<link rel = "stylesheet/less" href = "./css/ui-theme.less"/>
+	<script src = "js/less.min.js"></script>
+	<link rel = "icon" href = "./favicon.ico" type = "image/x-icon"/>
+</head>
+<body>
+	<div class = "side-container">
+		<nav class = "side-menu">
+			<div class = "app-logo">
+				<img src = "./img/logo.png" alt = ""/>
+			</div>
+			<ul class = "side-menu-items app-items">
+				<li class = "active"><img src = "./img/icons/large/note.png" alt = ""></li>
+				<li><img src = "./img/icons/large/categories.png" alt = ""></li>
+			</ul>
+			<ul class = "side-menu-items user-items">
+				<li><img src = "./img/icons/large/help.png" alt = ""></li>
+				<li><img src = "./img/icons/large/settings.png" alt = ""></li>
+				<li><img src = "./img/icons/large/signout.png" alt = ""></li>
+			</ul>
+		</nav>
+		<div class = "side-content">
+			<header class = "side-header">
+				<h3>Notes</h3>
+				<p>View and manage all your notes. Add new ones, read, edit or search through them.</p>
+			</header>
+			<div class = "side-action">
+				<button class = "img-button"><img src = "./img/icons/small/add.png"/>New note</button>
+			</div>
+			<ul class = "side-list options-list">
+				<h4>View</h4>
+				<li class = "active"><img src = "./img/icons/small/all-notes.png" alt = ""><span>All notes</span></li>
+				<hr/>
+				<li><img src = "./img/icons/small/completed.png" alt = ""><span>Completed</span></li>
+				<li><img src = "./img/icons/small/unfinished.png" alt = ""><span>Unfinished</span></li>
+				<hr/>
+				<li><img src = "./img/icons/small/public.png" alt = ""><span>Public</span></li>
+				<li><img src = "./img/icons/small/private.png" alt = ""><span>Private</span></li>
+			</ul>
+		</div>
+	</div>
+	<div class = "center-container">
+		<header class = "center-header">
+			<div class = "view-name">
+				<h1>All notes</h1>
+			</div>
+			<div class = "search-box">
+				<form>
+					<input type = "search" name = "search" class = "search"/>
+				</form>
+			</div>
+		</header>
+		<div class = "center-content notes-list">
+
+			<article class = "note-brief c3">
+				<div class = "nb-inside">
+					<div class = "nb-category">Ma</div>
+					<div class = "nb-center">
+						<header class = "nb-header">
+							<h2>Pick's theorem: idea and a proof</h2>
+							<ul class = "nb-keyword-list">
+								<li>Geometry</li>
+								<li>Theorem</li>
+								<li>Lattice points</li>
+							</ul>
+						</header>
+						<div class = "nb-content">
+							<p>
+								<date>04/10/14</date>
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae sit quos voluptatibus minus voluptas error quasi asperiores et aperiam unde, eum iure quia. Nisi ex aliquam eos eveniet, possimus dignissimos.
+							</p>
+						</div>
+					</div>
+				</div>
+			</article>
+
+			<article class = "note-brief c2">
+				<div class = "nb-inside">
+					<div class = "nb-category">Ph</div>
+					<div class = "nb-center">
+						<header class = "nb-header">
+							<h2>Tensile, bulk and shear strain</h2>
+							<ul class = "nb-keyword-list">
+								<li>Elasticity</li>
+								<li>Young modulus</li>
+								<li>Poisson coefficient</li>
+							</ul>
+						</header>
+						<div class = "nb-content">
+							<p>
+								<date>01/10/14</date>
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae vel cupiditate similique dolor libero aperiam, velit, autem incidunt sint adipisci facere nam explicabo asperiores deserunt itaque deleniti expedita eligendi non?
+							</p>
+						</div>
+					</div>
+				</div>
+			</article>
+
+			<article class = "note-brief c1">
+				<div class = "nb-inside">
+					<div class = "nb-category">Cs</div>
+					<div class = "nb-center">
+						<header class = "nb-header">
+							<h2>Monotone chain convex hull</h2>
+							<ul class = "nb-keyword-list">
+								<li>Algorithms</li>
+								<li>Computational geometry</li>
+							</ul>
+						</header>
+						<div class = "nb-content">
+							<p>
+								<date>29/09/14</date>
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto, itaque voluptates beatae, porro suscipit natus. Quas necessitatibus, ipsum debitis rerum, at expedita velit atque iste praesentium modi repellat voluptas odio?
+							</p>
+						</div>
+					</div>
+				</div>
+			</article>
+
+			<article class = "note-brief c3">
+				<div class = "nb-inside">
+					<div class = "nb-category">Ma</div>
+					<div class = "nb-center">
+						<header class = "nb-header">
+							<h2>Complex exponential function</h2>
+							<ul class = "nb-keyword-list">
+								<li>Complex numbers</li>
+								<li>Euler formula</li>
+								<li></li>
+							</ul>
+						</header>
+						<div class = "nb-content">
+							<p>
+								<date>24/09/14</date>
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo, autem odit eaque veniam architecto atque perspiciatis vero. Possimus officiis fuga nam labore, laudantium voluptatum qui mollitia earum itaque, ducimus eveniet!
+							</p>
+						</div>
+					</div>
+				</div>
+			</article>
+
+		</div>
+	</div>
+</body>

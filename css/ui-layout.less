@@ -2,8 +2,8 @@
 @import "ui-base.less";
 
 /***************************************************************************************************
-		
-							Different layouts based on the screen-size  			
+
+							Different layouts based on the screen-size
 
 ***************************************************************************************************/
 
@@ -24,7 +24,7 @@
 	.side-menu{
 		bottom 			: 	0;
 		position 		: 	fixed;
-		top 			: 	0; 
+		top 			: 	0;
 		width 			: 	96px;
 		z-index 		: 	2;
 	}
@@ -33,7 +33,7 @@
 		padding 		: 	24px 30px;
 
 		img{
-			width 			: 	36px; 
+			width 			: 	36px;
 		}
 	}
 
@@ -44,7 +44,7 @@
 
 	.side-content{
 		bottom 			: 	0;
-		overflow-y 		: 	auto; 
+		overflow-y 		: 	auto;
 		padding-left 	: 	96px;
 		position 		: 	fixed;
 		top 			: 	0;
@@ -60,8 +60,13 @@
 	}
 
 	.side-action{
-		overflow 		: 	hidden; 
+		overflow 		: 	hidden;
 		padding 		: 	0 48px 36px 48px;
+
+		button{
+			float 			: 	left;
+			margin-right 	: 	12px;
+		}
 	}
 
 	.side-list{
@@ -88,7 +93,7 @@
 	.side-option{
 		clear 			: 	both;
 		height 			: 	0;
-		overflow 		: 	hidden;		 	
+		overflow 		: 	hidden;
 	}
 
 	.note-toc{
@@ -103,7 +108,7 @@
 				content 		: 	counter( toc-counter, lower-alpha );
 				display 		: 	block;
 				left 			: 	0;
-				line-height 	: 	24px; 
+				line-height 	: 	24px;
 				position 		: 	absolute;
 				top 			: 	5px;
 			}
@@ -135,7 +140,7 @@
 	}
 
 	.center-content{
-		padding 		: 	 36px 48px;	
+		padding 		: 	 36px 48px;
 	}
 
 /**************************************************************************************************/
@@ -166,13 +171,13 @@
 
 	.nb-center{
 		height  		: 	168px;
-		overflow 		: 	hidden; 
+		overflow 		: 	hidden;
 		padding 		: 	0 24px 0 120px;
 	}
 
 	.nb-keyword-list{
 		height 			: 	24px;
-		margin-bottom 	: 	12px; 
+		margin-bottom 	: 	12px;
 		overflow 		: 	hidden;
 
 		li{
@@ -186,7 +191,7 @@
 			&:last-child:after{
 				content 		: 	"";
 			}
-		} 
+		}
 	}
 
 	.nb-content{
@@ -203,7 +208,7 @@
 		height 			: 	100%;
 		line-height 	: 	96px;
 		position 		: 	absolute;
-		width 			: 	168px;	
+		width 			: 	168px;
 	}
 
 	.note-header-center{
@@ -216,7 +221,7 @@
 
 		h2{
 			line-height 	: 	48px;
-			margin-bottom 	: 	12px;  
+			margin-bottom 	: 	12px;
 		}
 	}
 
@@ -239,7 +244,7 @@
 	}
 
 	.note-keyword-list{
-		margin-bottom 	: 	12px; 
+		margin-bottom 	: 	12px;
 		overflow 		: 	hidden;
 
 		li{
@@ -253,7 +258,7 @@
 			&:last-child:after{
 				content 		: 	"";
 			}
-		} 
+		}
 	}
 
 	.note-content{
@@ -284,12 +289,12 @@ textarea.note-title{
 }
 
 .note-text{
-	min-height 		: 	300px; 
+	min-height 		: 	300px;
 	width 			: 	100%;
 }
 
 .img-button.keyword-add{
-	float 			: 	left; 
+	float 			: 	left;
 	height 			: 	24px;
 	padding 		: 	0 4px;
 
@@ -321,7 +326,7 @@ input.new-keyword{
 
 	.category{
 		.column( 1, 2 );
-		
+
 		margin-bottom 	: 	48px;
 		padding 		: 	0 24px;
 		position 		: 	relative;
@@ -348,7 +353,7 @@ input.new-keyword{
 		overflow 		: 	hidden;
 
 		date{
-		//	margin-right 	: 	4px; 
+		//	margin-right 	: 	4px;
 		}
 	}
 }
